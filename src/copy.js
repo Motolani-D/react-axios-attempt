@@ -2,7 +2,6 @@ import logo from "./logo.svg";
 import "./App.css";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import UserList from "./UserList";
 
 function App() {
   const [Users, setUsers] = useState([]);
@@ -16,23 +15,34 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const userList = Users.map((Users, index) => {
+    return (
+      <tr>
+        <td>{Users.name}</td>
+        <td>{Users.username}</td>
+        <td>{Users.email}</td>
+        <td>{Users.phone}</td>
+        <td>{Users.website}</td>
+      </tr>
+    );
+  });
+
   return (
-    <div>
-      <div className="App">
-        <h2>User List</h2>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>UserName</th>
-            <th>Email</th>
-            <th> Phone no</th>
+    <div className="App">
+      <h2>User List</h2>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>UserName</th>
+          <th>Email</th>
+          <th> Phone no</th>
 
-            <th>Website</th>
-          </tr>
+          <th>Website</th>
+        </tr>
 
-          <UserList Users={Users} />
-        </table>
-      </div>
+        {userList}
+      </table>
     </div>
   );
 }
